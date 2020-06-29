@@ -2,6 +2,7 @@ const path = require('path');
 
 
 // Plugins
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
@@ -11,7 +12,7 @@ module.exports = () => {
         entry: path.resolve(__dirname, 'src/app.js'),
         output: {
             path: path.resolve(__dirname, 'dist'),
-            filename: 'bundle.js'
+            filename: 'assets/js/bundle.js'
         },
         module: {
             rules: [
@@ -65,16 +66,23 @@ module.exports = () => {
             ]
         },
         plugins: [
+            new CleanWebpackPlugin({
+                cleanStaleWebpackAssets: true
+            }),
             new HtmlWebpackPlugin({
                 title: 'React Base App',
                 template: path.resolve(__dirname, 'src', 'index.html')
             }),
             new MiniCssExtractPlugin({
-                filename: 'bundle.css'
+                filename: 'assets/css/bundle.css'
             })
         ],
         resolve: {
             extensions: ['.js', '.jsx']
+        },
+        devServer: {
+            contentBase: path.join(__dirname, 'dist'),
+            compress: true
         }
     };
 };
