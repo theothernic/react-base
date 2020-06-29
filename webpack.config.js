@@ -65,7 +65,10 @@ module.exports = () => {
             ]
         },
         plugins: [
-            new HtmlWebpackPlugin(),
+            new HtmlWebpackPlugin({
+                title: 'React Base App',
+                template: path.resolve(__dirname, 'src', 'index.html')
+            }),
             new MiniCssExtractPlugin({
                 filename: 'bundle.css'
             })
